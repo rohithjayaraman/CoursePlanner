@@ -1,27 +1,21 @@
-const schedule = {
-  title: "CS Courses for 2020-2021",
-  courses: [
-    {
-      id: "W101",
-      name: "Fundamentals of Computer Programming",
-      meets: "TuTh 15:30-16:20"
-    },
-    {
-      id: "W174",
-      name: "Data Structures",
-      meets: "MWF 12:00-13:00"
-    },
-    {
-      id: "W213",
-      name: "Design and Analysis of Algorithms",
-      meets: "TuTh 10:30-11:20"
-    },
-    {
-      id: "W312",
-      name: "Advanced Approximation Algorithms",
-      meets: "MWF 14:30-15:50"
-    }
-  ]
-};
+import React, {useState, useEffect} from 'react';
 
-export default schedule;
+function getSchedule(){
+  const [schedule, setSchedule] = useState({title: '', courses: []});
+  const url = 'https://courses.cs.northwestern.edu/394/data/cs-courses.php';
+  useEffect(() => {
+    async function fetchSchedule() {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw response;
+      }
+      const scheduleJSON = await response.json();
+      setSchedule(scheduleJSON);
+    };
+    fetchSchedule();
+  })
+  //returning schedule since App.js requires schedule to send values to Banner, CourseList
+  return schedule;
+}
+
+export default getSchedule;

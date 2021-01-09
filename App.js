@@ -1,9 +1,10 @@
 import React from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import {Banner, CourseList} from './components';
-import {schedule} from './utils';
+import {getSchedule} from './utils';
 
 const App = () => {
+  const schedule = getSchedule();
   return (
     <SafeAreaView style={styles.container}>
       <Banner title={schedule.title}></Banner>
