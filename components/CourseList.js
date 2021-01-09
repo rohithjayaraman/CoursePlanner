@@ -1,23 +1,19 @@
 import React from 'react';
-import {ScrollView, View, StyleSheet} from 'react-native';
-import Course from './Course';
+import {ScrollView, View} from 'react-native';
+import {Course,TermSelector} from './';
+import {getTermCourses, styles} from '../utils';
 
-const CourseList = ({ courses }) => (
+const CourseList = ({ courses }) => {
+  const {termCourses, terms, selectedTerm, setSelectedTerm} = getTermCourses(courses);
+  return (
+    <View style={styles.courseListContainer}>
+  <TermSelector terms={terms} selectedTerm={selectedTerm} setSelectedTerm={setSelectedTerm}></TermSelector>
   <ScrollView>
-    <View style={styles.courseListStyle}>
-      {courses.map(course => <Course key={course.id} course={course}></Course>)}
+    <View style={styles.courseList}>
+      {termCourses.map(course => <Course key={course.id} course={course}></Course>)}
     </View>
   </ScrollView>
-)
-
-const styles = StyleSheet.create({
-  courseListStyle: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  }
-})
+  </View>
+)}
 
 export default CourseList;

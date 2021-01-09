@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {Banner, CourseList} from './components';
-import {getSchedule} from './utils';
+import {getSchedule, styles} from './utils';
 
 const App = () => {
   const schedule = getSchedule();
@@ -12,14 +12,5 @@ const App = () => {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingTop: 10
-  }
-});
 
 export default App;

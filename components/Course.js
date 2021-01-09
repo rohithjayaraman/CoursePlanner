@@ -1,5 +1,6 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {TouchableOpacity, Text} from 'react-native';
+import {styles} from '../utils';
 
 function getCourseNumber(course){
     return course.id.substring(1);
@@ -11,34 +12,11 @@ return `${meetingDetails[0]}\n${meetingDetails[1]}`
 }
 
 const Course = ({course}) => (
-<TouchableOpacity style={styles.courseButtonStyle}>
-    <Text style={styles.courseTextStyle}>
+<TouchableOpacity style={styles.courseButton}>
+    <Text style={styles.courseText}>
     {`CS ${getCourseNumber(course)}\n${getCourseMeetsString(course)}`}
     </Text>
 </TouchableOpacity>
 );
-
-const styles = StyleSheet.create({
-  courseButtonStyle: {
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 10,
-    padding: 10,
-    //adding min and max width, min and max height (instead of just height and width) to avoid auto-resizing in few cases
-    minHeight: 100,
-    maxHeight: 100,
-    minWidth: 100,
-    maxWidth: 100,
-    //width and height set as 100 based on visual layout on iOS
-    backgroundColor: '#66b0ff'
-  },
-  courseTextStyle: {
-    color: '#fff',
-    // font size set to 11 since it gives best visual output across web and iOS app
-    fontSize: 11,
-    textAlign: 'center'
-  }
-});
 
 export default Course;
