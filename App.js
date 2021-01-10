@@ -1,15 +1,17 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import {SafeAreaView} from 'react-native';
-import {Banner, CourseList} from './components';
-import {getSchedule, styles} from './utils';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import {ScheduleScreen, CourseDetailScreen} from './screens';
 
-const App = () => {
-  const schedule = getSchedule();
+const Stack = createStackNavigator();
+
+function App(){
   return (
-    <SafeAreaView style={styles.container}>
-      <Banner title={schedule.title}></Banner>
-      <CourseList courses={schedule.courses}></CourseList>
-    </SafeAreaView>
+    <NavigationContainer><Stack.Navigator>
+      <Stack.Screen name="ScheduleScreen" component={ScheduleScreen} options={{ headerTitleAlign: 'center', title: 'Schedule'}}></Stack.Screen>
+      <Stack.Screen name="CourseDetailScreen" component={CourseDetailScreen} options={{ headerTitleAlign: 'center', title: 'Course detail'}}></Stack.Screen>
+    </Stack.Navigator></NavigationContainer>
   );
 }
 

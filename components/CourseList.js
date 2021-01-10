@@ -4,13 +4,13 @@ import CourseSelector from './CourseSelector';
 import TermSelector from './TermSelector';
 import {getTermCourses, styles} from '../utils';
 
-const CourseList = ({ courses }) => {
+function CourseList({ courses, view }) {
   const {termCourses, terms, selectedTerm, setSelectedTerm} = getTermCourses(courses);
   return (
-    <View style={styles.courseListContainer}>
+    <View style={styles.scheduleScreen.courseListContainer}>
   <TermSelector terms={terms} selectedTerm={selectedTerm} setSelectedTerm={setSelectedTerm}></TermSelector>
   <ScrollView>
-    <CourseSelector courses={termCourses}></CourseSelector>
+    <CourseSelector courses={termCourses} view={view}></CourseSelector>
   </ScrollView>
   </View>
 )}
