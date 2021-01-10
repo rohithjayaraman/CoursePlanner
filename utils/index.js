@@ -1,9 +1,14 @@
-import getSchedule from './Schedule';
-import getTermCourses from './Term';
 import styles from './Style';
+import getSchedule from './Schedule';
+import {getTermCourses, checkIfConflict, getCourseTerm, getCourseNumber, getCourseMeetsString, getSelectedCourseDetails} from './Course';
 
 export {
+  styles,
   getSchedule,
   getTermCourses,
-  styles
+  checkIfConflict,
+  getCourseTerm,
+  getCourseNumber,
+  getCourseMeetsString,
+  getSelectedCourseDetails
 };

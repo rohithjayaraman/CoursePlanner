@@ -12,6 +12,10 @@ const banner = {
   fontSize: 32
 }
 
+const courseListContainer = {
+  alignItems: 'center'
+}
+
 const courseButton = {
   borderRadius: 5,
   justifyContent: 'center',
@@ -24,7 +28,21 @@ const courseButton = {
   minWidth: 100,
   maxWidth: 100,
   //width and height set as 100 based on visual layout on iOS
+}
+
+const courseButtonUnselected = {
+  ...courseButton,
   backgroundColor: '#66b0ff'
+}
+
+const courseButtonSelected = {
+  ...courseButton,
+  backgroundColor: '#004a99'
+}
+
+const courseButtonDisabled = {
+  ...courseButton,
+  backgroundColor: '#d3d3d3'
 }
 
 const courseText = {
@@ -34,11 +52,7 @@ const courseText = {
   textAlign: 'center'
 }
 
-const courseListContainer = {
-  alignItems: 'center'
-}
-
-const courseList =  {
+const courseSelector =  {
   flex: 1,
   flexDirection: 'row',
   flexWrap: 'wrap',
@@ -81,10 +95,12 @@ const termText = {
 export default StyleSheet.create({
   banner,
   container,
-  courseButton,
+  courseButtonSelected,
+  courseButtonUnselected,
+  courseButtonDisabled,
   courseText,
+  courseSelector,
   courseListContainer,
-  courseList,
   termSelector,
   termButtonActive,
   termButtonInactive,

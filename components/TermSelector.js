@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableOpacity, Text, View} from 'react-native';
 import {styles} from '../utils';
 
-const TermButton = ({ term, isActive, key, setSelectedTerm }) => (
+const TermButton = ({ term, isActive, setSelectedTerm }) => (
   <TouchableOpacity style={isActive ? styles.termButtonActive : styles.termButtonInactive} onPress={() => setSelectedTerm(term)}>
     <Text style={styles.termText}>{term}</Text>
   </TouchableOpacity>
