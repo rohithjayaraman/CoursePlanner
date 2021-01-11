@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {SafeAreaView} from 'react-native';
 import {Banner, CourseList} from '../components';
-import {getSchedule, styles} from '../utils';
+import {getSchedule, styles, UserContext, canEdit} from '../utils';
 
 function Schedule ({navigation}) {
+  const user = useContext(UserContext);
+
   const schedule = getSchedule();
 
   function viewCourse(course){
-      navigation.navigate('CourseDetailScreen', {course});
+      navigation.navigate(canEdit(user)? 'CourseEditScreen' : 'CourseDetailScreen', {course});
   }
 
   return (

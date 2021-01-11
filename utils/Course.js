@@ -1,4 +1,19 @@
 import {useState} from 'react';
+import * as Yup from 'yup';
+
+const courseValidationSchema = Yup.object().shape({
+  id: Yup.string()
+    .required()
+    .matches(/^(F|W|S)\d{3}(\-\d){0,1}$/, 'Must be a term followed by 3-digit number (and a hypen plus digit for courses that have multiple parts)')
+    .label('ID'),
+  meets: Yup.string()
+    .required()
+    .matches(/^(M|Tu|W|Th|F)+ +\d{1,2}:\d{2}\-\d{1,2}:\d{2}$/, 'Must be weekdays followed by start and end time')
+    .label('Meeting times'),
+  title: Yup.string()
+    .required()
+    .label('Title'),
+});
 
 const termMap = {
   F: 'Fall',
@@ -92,6 +107,7 @@ export {
   getCourseTerm,
   getCourseNumber,
   getCourseMeetsString,
-  getSelectedCourseDetails
+  getSelectedCourseDetails,
+  courseValidationSchema
 };
 

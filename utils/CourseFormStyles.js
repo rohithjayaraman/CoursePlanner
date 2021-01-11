@@ -4,7 +4,8 @@ const container = {
   flex: 1,
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundColor: '#66b0ff'
+  backgroundColor: '#66b0ff',
+  width: '100%'
 }
 
 const field = {
@@ -12,7 +13,8 @@ const field = {
   width: 300,
   padding: 5,
   backgroundColor: 'white',
-  textAlign: 'center'
+  textAlign: 'center',
+  fontSize: 15
 }
 
 const fieldContainer = {
@@ -29,7 +31,14 @@ const fieldContainer = {
 }
 
 const label = {
-  fontWeight: 'bold'
+  fontWeight: 'bold',
+  fontSize: 15
+}
+
+const formField = {
+  width: 300,
+  fontSize: 16,
+  textAlign: 'center'
 }
 
 export default StyleSheet.create({
@@ -37,4 +46,5 @@ export default StyleSheet.create({
   field,
   fieldContainer,
   label,
+  formField
 });
