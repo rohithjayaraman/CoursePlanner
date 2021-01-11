@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import * as Yup from 'yup';
+import {firebase} from './firebase';
 
 const courseValidationSchema = Yup.object().shape({
   id: Yup.string()
@@ -25,12 +26,12 @@ const terms = Object.values(termMap);
 
 const days = ['M', 'Tu', 'W', 'Th', 'F', 'Sa', 'Su'];
 
-function getTimeInMinutes(time){
+function getTimeInMinutes(time) {
   const timeUnits = time.split(':');
-  return timeUnits[0]*60 + timeUnits[1];
+  return timeUnits[0] * 60 + timeUnits[1];
 }
 
-function setCourseTime(course){
+function setCourseTime(course) {
   course.days = days.filter(day => course.meets.includes(day));
 
   const timing = course.meets.split(' ')[1].split('-');
@@ -40,23 +41,23 @@ function setCourseTime(course){
   }
 }
 
-function checkDayOverlap(days1, days2){
+function checkDayOverlap(days1, days2) {
   return days1 && days2 && days2.some(day => days1.includes(day));
 }
 
-function checkHourOverlap(timing1, timing2){
+function checkHourOverlap(timing1, timing2) {
   return timing1 && timing2 && Math.max(timing1.start, timing2.start) < Math.min(timing1.end, timing2.end)
 }
-function checkTimingOverlap(course1, course2){
+function checkTimingOverlap(course1, course2) {
   return checkDayOverlap(course1.days, course2.days) && checkHourOverlap(course1.timing, course2.timing)
 }
 
-function checkCourseConflict(course1, course2){
-  return course1.id!==course2.id && getCourseTerm(course1) === getCourseTerm(course2) && checkTimingOverlap(course1, course2);
+function checkCourseConflict(course1, course2) {
+  return course1.id !== course2.id && getCourseTerm(course1) === getCourseTerm(course2) && checkTimingOverlap(course1, course2);
 }
 
-function checkIfConflict(course, selectedCourses){
-  if(!course.days){
+function checkIfConflict(course, selectedCourses) {
+  if (!course.days) {
     setCourseTime(course)
   }
   return selectedCourses.some(selectedCourse => checkCourseConflict(course, selectedCourse))
@@ -66,19 +67,19 @@ function getCourseTerm(course) {
   return termMap[course.id.charAt(0)];
 }
 
-function getCourseNumber(course){
+function getCourseNumber(course) {
   return course.id.substring(1);
 }
 
-function getCourseMeetsString(course){
-const meetingDetails = course.meets.split(' ');
-return `${meetingDetails[0]}\n${meetingDetails[1]}`
+function getCourseMeetsString(course) {
+  const meetingDetails = course.meets.split(' ');
+  return `${meetingDetails[0]}\n${meetingDetails[1]}`
 }
 
-function getSelectedCourseDetails(){
+function getSelectedCourseDetails() {
   const [selectedCourses, setSelectedCourses] = useState([]);
 
-  function toggleSelection(course){
+  function toggleSelection(course) {
     setSelectedCourses(selectedCourses.some(selectedCourse => selectedCourse.id === course.id) ? selectedCourses.filter(selectedCourse => selectedCourse.id !== course.id) : [...selectedCourses, course])
   }
 
@@ -101,6 +102,23 @@ function getTermCourses(courses) {
   }
 }
 
+function getSubmitAndErrorHandler() {
+  const [submissionError, setSubmissionError] = useState('');
+
+  async function handleCourseEditSubmission(courseDetails) {
+    const { id, meets, title } = courseDetails;
+    const course = { id, meets, title };
+    firebase.database().ref('courses').child(id).set(course).catch(error => {
+      setSubmissionError(error.message);
+    });
+  }
+
+  return {
+    submissionError,
+    handleCourseEditSubmission
+  }
+}
+
 export {
   getTermCourses,
   checkIfConflict,
@@ -108,6 +126,6 @@ export {
   getCourseNumber,
   getCourseMeetsString,
   getSelectedCourseDetails,
+  getSubmitAndErrorHandler,
   courseValidationSchema
 };
-

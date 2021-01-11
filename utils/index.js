@@ -3,7 +3,8 @@ import courseScreenStyles from './CourseFormStyles';
 import getSchedule from './Schedule';
 import {getUser, canEdit} from './User';
 import UserContext from './UserContext';
-import {getTermCourses, checkIfConflict, getCourseTerm, getCourseNumber, getCourseMeetsString, getSelectedCourseDetails, courseValidationSchema} from './Course';
+import {firebase} from './firebase';
+import {getTermCourses, checkIfConflict, getCourseTerm, getCourseNumber, getCourseMeetsString, getSelectedCourseDetails, getSubmitAndErrorHandler, courseValidationSchema} from './Course';
 
 const styles = {
   scheduleScreen: scheduleScreenStyles,
@@ -13,6 +14,7 @@ const styles = {
 
 export {
   styles,
+  firebase,
   UserContext,
   getUser,
   canEdit,
@@ -23,5 +25,6 @@ export {
   getCourseNumber,
   getCourseMeetsString,
   getSelectedCourseDetails,
+  getSubmitAndErrorHandler,
   courseValidationSchema
 };
