@@ -1,19 +1,23 @@
 import {useState, useEffect} from 'react';
+import {firebase} from '../firebase';
+
+function fixCourseFormat(json){
+  return {
+    ...json,
+    courses: Object.values(json.courses)
+  }
+}
 
 function getSchedule(){
   const [schedule, setSchedule] = useState({title: '', courses: []});
-  const url = 'https://courses.cs.northwestern.edu/394/data/cs-courses.php';
   useEffect(() => {
-    async function fetchSchedule() {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw response;
-      }
-      const scheduleJSON = await response.json();
-      setSchedule(scheduleJSON);
-    };
-    fetchSchedule();
-  })
+    const db = firebase.database().ref();
+    function handleData(snapshot) {
+      if (snapshot.val()) setSchedule(fixCourseFormat(snapshot.val()));
+    }
+    db.on('value', handleData, error => alert(error));
+    return () => { db.off('value', handleData); };
+  }, []);
   //returning schedule since App.js requires schedule to send values to Banner, CourseList
   return schedule;
 }
