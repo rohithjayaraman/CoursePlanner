@@ -2,6 +2,7 @@ import {useState} from 'react';
 import * as Yup from 'yup';
 import {firebase} from './firebase';
 
+//validation for the form
 const courseValidationSchema = Yup.object().shape({
   id: Yup.string()
     .required()
